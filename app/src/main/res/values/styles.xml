@@ -1,23 +1,35 @@
 <resources>
 
-    <!-- Base application theme. -->
+    <!--    Base application theme  -->
     <style name="AppBlankTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Main theme colors -->
-        <!--   your app branding color for the app bar -->
+        <!--    Main theme colors   -->
+        <!--   your app branding color for the app bar  -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <!--   darker variant for the status bar and contextual app bars -->
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <!--   theme UI controls like checkboxes and text fields -->
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-    <!--Both themes below are those accepted to make the ToolBar works-->
-    <!-- Base application thème. -->
+    <!--    Both themes below are those accepted to make the ToolBar works  -->
+    <!--    Base application thème  -->
     <style name="AppTheme" parent="AppBlankTheme">
-        <!-- Customize your theme here. -->
-        <!-- Base application thème. -->
+        <!--    Customize your theme here   -->
+        <!--    Base application thème  -->
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="spinnerDropDownItemStyle">@style/Base.Widget.AppCompat.DropDownItem.Spinner</item>
+    </style>
+
+    <!--    Customize the Alert Dialog  -->
+
+    <style name="DialogTheme" parent="android:Theme.Dialog">
+
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <!-- No backgrounds, titles or window float -->
+        <item name="android:windowBackground">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">false</item>
     </style>
 
 </resources>

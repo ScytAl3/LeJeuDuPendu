@@ -96,7 +96,7 @@ public class GameActivity extends AppCompatActivity {
       currentWord = "";
 
       // Appelle de la methode setSupportActionBar() de l activite pour transmettre la barre d outils
-      myToolBar = (Toolbar) findViewById(R.id.my_toolbar);
+      myToolBar = findViewById(R.id.my_toolbar);
       setSupportActionBar(myToolBar);
 
       playGame();
@@ -237,6 +237,18 @@ public class GameActivity extends AppCompatActivity {
    }
 
    /**
+    * Methode pour arreter le MediaPlayer pour eviter les problemes de pertes de son quand on clique
+    * trop vite sur les touches du clavier
+    */
+   public void stopPlaying() {
+      if (md_PlaySound != null) {
+         md_PlaySound.stop();
+         md_PlaySound.release();
+         md_PlaySound = null;
+      }
+   }
+
+   /**
     * Methode associee a la methode onClick declaree lors de la creation de la disposition de bouton
     * dans le fichier lettres_clavier.xml
     * @param view
@@ -272,6 +284,7 @@ public class GameActivity extends AppCompatActivity {
       // Si c est une bonne lettre
       if (correct) {
          // Lance la musique de bonne lettre
+         stopPlaying();
          md_PlaySound = MediaPlayer.create(this, R.raw.correct);
          md_PlaySound.start();
          // si le nombre de lettres trouver correspond au nombre de lettres du mot cache
@@ -282,7 +295,7 @@ public class GameActivity extends AppCompatActivity {
             md_PlaySound = MediaPlayer.create(this, R.raw.trumpet_fanfare);
             md_PlaySound.start();
             // On averti l utilisateur qu il a gagne et on lui demande s il veut rejouer
-            AlertDialog.Builder winBuild = new AlertDialog.Builder(this);
+            AlertDialog.Builder winBuild = new AlertDialog.Builder(this, R.style.DialogTheme);
             winBuild.setTitle("Bravo !");
             winBuild.setMessage("Vous avez gagné !\n\nLe mot à trouver était:\n\n"+currentWord);
             winBuild.setPositiveButton("Voulez-vous rejouer ?",
@@ -303,6 +316,7 @@ public class GameActivity extends AppCompatActivity {
       // Sinon si il reste des parties du corps du pendu a afficher
       else if ((currentPart < numParts) && (currentPart + 1 != numParts)) {
          // Lance la musique de mauvaise lettre
+         stopPlaying();
          md_PlaySound = MediaPlayer.create(this, R.raw.fail);
          md_PlaySound.start();
          // On affiche la partie du corps suivante
@@ -320,7 +334,7 @@ public class GameActivity extends AppCompatActivity {
          md_PlaySound = MediaPlayer.create(this, R.raw.funeral_trumpet);
          md_PlaySound.start();
          // On averti l utilisateur qu il a perdu et on lui demande s il veut rejouer
-         AlertDialog.Builder loseBuild = new AlertDialog.Builder(this);
+         AlertDialog.Builder loseBuild = new AlertDialog.Builder(this, R.style.DialogTheme);
          loseBuild.setTitle("Dommage !");
          loseBuild.setMessage("Vous avez perdu !\n\nLe mot à trouver était:\n\n"+currentWord);
          loseBuild.setPositiveButton("Voulez-vous rejouer ?",
@@ -362,7 +376,7 @@ public class GameActivity extends AppCompatActivity {
    public List<String> getListOfWord() {
 
       try {
-         BufferedReader br = new BufferedReader(new InputStreamReader(getAssets().open("wordList.txt")));
+         BufferedReader br = new BufferedReader(new InputStreamReader(getAssets().open("wordList_7to12.txt")));
          String line;
          // Tant qu il y a un mot on l ajoute
          while ((line = br.readLine()) != null) {
